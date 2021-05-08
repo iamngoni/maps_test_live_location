@@ -60,9 +60,18 @@ class _MapTestState extends State<MapTest> {
               zoom: 19.151926040649414,
             ),
             myLocationEnabled: true,
-            polylines: Set<Polyline>.of(provider.polylines.values),
+            polylines: provider.polylines,
+            markers: Set<Marker>.of(provider.markers.values),
             onMapCreated: (GoogleMapController controller) {
               provider.controller.complete(controller);
+            },
+            onTap: (tappedLocation){
+              // on tap
+              // create polylines from current location to destination
+              provider.setPolyLines(provider.currentLocation, tappedLocation);
+              ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                content: Text("Finding Route....."),
+              ));
             },
           ),
         );
