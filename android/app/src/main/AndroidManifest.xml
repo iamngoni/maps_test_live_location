@@ -6,7 +6,7 @@
         android:label="maps_test"
         android:icon="@mipmap/ic_launcher">
         <meta-data android:name="com.google.android.geo.API_KEY"
-            android:value="AIzaSyCnx7E3hzCsR5onzv34H0Mk5BMdG3CzKUk"/>
+            android:value="GOOGLE_MAPS_API"/>
         <activity
             android:name=".MainActivity"
             android:launchMode="singleTop"

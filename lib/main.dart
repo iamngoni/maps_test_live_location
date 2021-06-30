@@ -42,7 +42,7 @@ class _MapTestState extends State<MapTest> {
         title: Text("Location Tracker Test"),
       ),
       body: Consumer<LocationProvider>(builder: (context, provider, child) {
-        while (provider.locationData == null) {
+        while (provider.polylines.isEmpty) {
           return Center(
             child: CircularProgressIndicator(),
           );
@@ -54,7 +54,7 @@ class _MapTestState extends State<MapTest> {
           height: MediaQuery.of(context).size.height,
           width: MediaQuery.of(context).size.width,
           child: GoogleMap(
-            mapType: MapType.normal,
+            mapType: MapType.satellite,
             initialCameraPosition: CameraPosition(
               target: LatLng(provider.locationData.latitude, provider.locationData.longitude),
               zoom: 19.151926040649414,
@@ -64,14 +64,6 @@ class _MapTestState extends State<MapTest> {
             markers: Set<Marker>.of(provider.markers.values),
             onMapCreated: (GoogleMapController controller) {
               provider.controller.complete(controller);
-            },
-            onTap: (tappedLocation){
-              // on tap
-              // create polylines from current location to destination
-              provider.setPolyLines(provider.currentLocation, tappedLocation);
-              ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-                content: Text("Finding Route....."),
-              ));
             },
           ),
         );
